@@ -1,10 +1,16 @@
 import React from "react";
+import { Post } from "./Post/Post";
 import "./Posts.css";
 
 export const Posts = () => {
   return (
     <div className="posts">
-      <h1>posts</h1>
+      <Post />
+      <Post />
+      <Post />
+      <Post />
+      <Post />
+      <Post />
     </div>
   );
 };
