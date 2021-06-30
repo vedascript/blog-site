@@ -24,6 +24,7 @@ router.patch("/:id", async (req, res) => {
           req.body,
           { new: true }
         );
+        res.status(200).json(updatedPost);
       } catch (err) {
         res.status(500).json(err);
       }
@@ -35,12 +36,30 @@ router.patch("/:id", async (req, res) => {
   }
 });
 
-//Get user
+//delete post
+router.delete("/:id", async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    if (post.username === req.body.username) {
+      try {
+        await Post.findByIdAndDelete(req.params.id);
+        res.status(201).json({ msg: "post deleted" });
+      } catch (err) {
+        res.status(500).json(err);
+      }
+    } else {
+      res.status(400).json({ msg: "You can only delete your post" });
+    }
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+//get post
 router.get("/:id", async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
-    const { password, ...data } = user._doc;
-    res.status(200).json(data);
+    const post = await Post.findById(req.params.id);
+    res.status(201).json(post);
   } catch (err) {
     res.status(500).json(err);
   }
