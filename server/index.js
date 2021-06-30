@@ -1,13 +1,17 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const userController = require("./controllers/auth");
+const authController = require("./controllers/auth");
+const userController = require("./controllers/users");
+const postController = require("./controllers/post");
 
 dotenv.config();
 const app = express();
 
 app.use(express.json());
+app.use("/auth", authController);
 app.use("/user", userController);
+app.use("/post", postController);
 
 mongoose
   .connect(process.env.ATLAS_URI, {
