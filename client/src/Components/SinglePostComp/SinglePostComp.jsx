@@ -1,13 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useParams } from "react-router";
 import "./SinglePostComp.css";
 
 export const SinglePostComp = () => {
+  const id = useParams().id;
+  const [post, setPost] = useState({});
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/post/${id}`)
+      .then((res) => setPost(res.data));
+  }, [id]);
+
   return (
     <div className="singlePost">
       <div className="singlePostWrapper">
-        <img src="https://bit.ly/3deRABa" alt="" className="singlePostImg" />
+        {post.photo && (
+          <img src={post.photo} alt="" className="singlePostImg" />
+        )}
+
         <h1 className="singlePostTitle">
-          Lorenz lorem ipsum lorem Lorenz lorem ipsum lorem Lorenz lorem ipsum
+          {post.title}
           <div className="singlePostEdit">
             <i className="singlePostIcon far fa-edit"></i>
             <i className="singlePostIcon far fa-trash-alt"></i>
@@ -15,22 +29,13 @@ export const SinglePostComp = () => {
         </h1>
         <div className="singlePostInfo">
           <span className="author">
-            Author: <b>Vedansh</b>
+            Author: <b>{post.username}</b>
           </span>
-          <span className="date">1 hour ago</span>
+          <span className="date">
+            {new Date(post.createdAt).toLocaleString()}
+          </span>
         </div>
-        <p className="singlePostDesc">
-          Lorem ipsum dolor sit am lorem lorem ipsum Lorem ipsum dolor sit am
-          Lorem ipsum dolor sit am lorem lorem ipsum Lorem ipsum dolor sit am
-          Lorem ipsum dolor sit am lorem lorem ipsum lorem lorem ipsum lorem
-          lorem ipsum Lorem ipsum dolor sit am lorem lorem ipsum Lorem ipsum
-          dolor sit am Lorem ipsum dolor sit am lorem lorem ipsum Lorem ipsum
-          dolor sit am Lorem ipsum dolor sit am lorem lorem ipsum lorem lorem
-          ipsum lorem lorem ipsum Lorem ipsum dolor sit am lorem lorem ipsum
-          Lorem ipsum dolor sit am Lorem ipsum dolor sit am lorem lorem ipsum
-          Lorem ipsum dolor sit am Lorem ipsum dolor sit am lorem lorem ipsum
-          lorem lorem ipsum lorem lorem ipsum
-        </p>
+        <p className="singlePostDesc">{post.desc}</p>
       </div>
     </div>
   );

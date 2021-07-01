@@ -9,7 +9,6 @@ export const Header = () => {
         <span className="headerTitlelg">Blog</span>
       </div>
       <img className="headerImg" src="https://bit.ly/3hbTNib" alt="headerImg" />
-      <h1>header</h1>
     </div>
   );
 };
