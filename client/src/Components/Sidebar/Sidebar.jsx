@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./Sidebar.css";
 
 export const Sidebar = () => {
+  const [cats, setCats] = useState([]);
+
+  useEffect(() => {
+    axios.get("http://locahost:5000/cat").then((res) => setCats(res.data));
+  }, []);
   return (
     <div className="sidebar">
       <div className="sidebarItem">
@@ -20,12 +26,9 @@ export const Sidebar = () => {
       <div className="sidebarItem">
         <span className="sidebarTitle">CATEGORIES</span>
         <ul className="sidebarList">
-          <li className="sideBarListItem">Javascript</li>
-          <li className="sideBarListItem">Html</li>
-          <li className="sideBarListItem">React</li>
-          <li className="sideBarListItem">Node</li>
-          <li className="sideBarListItem">Mongodb</li>
-          <li className="sideBarListItem">Nextjs</li>
+          {cats.map((cat) => (
+            <li className="sideBarListItem">{cat}</li>
+          ))}
         </ul>
       </div>
       <div className="sidebarItem">

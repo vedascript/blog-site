@@ -10,14 +10,16 @@ export const Post = ({ post }) => {
       )}
 
       <div className="postInfo">
-        <div className="postCats">
-          {post?.categories.map((cat) => (
-            <span className="postCat">{cat}</span>
-          ))}
-        </div>
         <Link to={`post/${post._id}`} className="link">
           <span className="postTitle">{post.title}</span>
         </Link>
+        <div className="postCats">
+          {post?.categories.map((cat) => (
+            <span key={cat} className="postCat">
+              {cat}
+            </span>
+          ))}
+        </div>
         <hr />
         <span className="postDate">
           {new Date(post.createdAt).toLocaleString()}
