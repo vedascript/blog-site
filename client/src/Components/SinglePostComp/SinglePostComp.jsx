@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router";
 import "./SinglePostComp.css";
+import { Link } from "react-router-dom";
 
 export const SinglePostComp = () => {
   const id = useParams().id;
@@ -29,7 +30,10 @@ export const SinglePostComp = () => {
         </h1>
         <div className="singlePostInfo">
           <span className="author">
-            Author: <b>{post.username}</b>
+            Author : &nbsp;
+            <Link to={`/?user=${post.username}`} className="link">
+              <b>{post.username}</b>{" "}
+            </Link>
           </span>
           <span className="date">
             {new Date(post.createdAt).toLocaleString()}
