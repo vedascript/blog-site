@@ -10,3 +10,7 @@ export const LoginSuccess = (payload) => ({
 export const LoginFailure = () => ({
   type: "LOGIN_FAILURE",
 });
+
+export const Logout = () => ({
+  type: "LOGOUT",
+});
