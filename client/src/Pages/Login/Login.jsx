@@ -12,11 +12,7 @@ export const Login = () => {
         <label>Password</label>
         <input type="password" placeholder="Enter your password" />
 
-        <button className="loginButton">
-          <Link className="link" to="/login">
-            Login
-          </Link>
-        </button>
+        <button className="loginButton">Login</button>
       </form>
       <button className="loginRegisterButton">
         <Link className="link" to="/register">
