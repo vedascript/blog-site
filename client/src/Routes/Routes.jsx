@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Navbar } from "../Components/Navbar/Navbar";
+import { Context } from "../context/Context";
 import { Home } from "../Pages/Home/Home";
 import { Login } from "../Pages/Login/Login";
 import { Register } from "../Pages/Register/Register";
@@ -9,7 +10,7 @@ import { SinglePost } from "../Pages/SinglePost/SinglePost";
 import { Write } from "../Pages/Write/Write";
 
 export const Routes = () => {
-  const user = false;
+  const { user } = useContext(Context);
   return (
     <BrowserRouter>
       <Navbar />
