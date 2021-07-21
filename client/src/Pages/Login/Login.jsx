@@ -7,13 +7,22 @@ import "./Login.css";
 export const Login = () => {
   const userRef = useRef(null);
   const passRef = useRef(null);
-  const { dispatch, isFetching } = useContext(Context);
+  const { user, dispatch, isFetching } = useContext(Context);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch();
+    dispatch({ type: "LOGIN_START" });
+    try {
+      const res = await axios.post("http://localhost:5000/auth/login", {
+        username: userRef.current.value,
+        password: passRef.current.value,
+      });
+      dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
+    } catch (err) {
+      dispatch({ type: "LOGIN_FAILURE" });
+    }
   };
-
+  console.log(user);
   return (
     <div className="login">
       <span className="loginTitle">Login</span>
