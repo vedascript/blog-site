@@ -43,5 +43,7 @@ mongoose
     useCreateIndex: true,
     useFindAndModify: false,
   })
-  .then(() => app.listen(5000, console.log("SERVER RUNNING")))
+  .then(() =>
+    app.listen(process.env.PORT || 5000, console.log("SERVER RUNNING"))
+  )
   .catch((error) => console.log(error));
