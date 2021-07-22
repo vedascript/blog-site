@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 export const SinglePostComp = () => {
   const id = useParams().id;
   const [post, setPost] = useState({});
+  const PF = "http://localhost:5000/images/";
 
   useEffect(() => {
     axios
@@ -18,7 +19,7 @@ export const SinglePostComp = () => {
     <div className="singlePost">
       <div className="singlePostWrapper">
         {post.photo && (
-          <img src={post.photo} alt="" className="singlePostImg" />
+          <img src={PF + post.photo} alt="" className="singlePostImg" />
         )}
 
         <h1 className="singlePostTitle">
