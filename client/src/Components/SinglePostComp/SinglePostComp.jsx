@@ -1,19 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router";
 import "./SinglePostComp.css";
 import { Link } from "react-router-dom";
+import { Context } from "../../context/Context";
 
 export const SinglePostComp = () => {
   const id = useParams().id;
   const [post, setPost] = useState({});
   const PF = "http://localhost:5000/images/";
+  const { user } = useContext(Context);
 
   useEffect(() => {
     axios
       .get(`http://localhost:5000/post/${id}`)
       .then((res) => setPost(res.data));
   }, [id]);
+
+  const handleDelete = async () => {
+    try {
+      await axios.delete("http://localhost:5000/post/" + id, {
+        data: { username: user.username },
+      });
+      window.location.replace("/");
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className="singlePost">
@@ -24,10 +37,15 @@ export const SinglePostComp = () => {
 
         <h1 className="singlePostTitle">
           {post.title}
-          <div className="singlePostEdit">
-            <i className="singlePostIcon far fa-edit"></i>
-            <i className="singlePostIcon far fa-trash-alt"></i>
-          </div>
+          {post.username === user.username && (
+            <div className="singlePostEdit">
+              <i className="singlePostIcon far fa-edit"></i>
+              <i
+                className="singlePostIcon far fa-trash-alt"
+                onClick={handleDelete}
+              ></i>
+            </div>
+          )}
         </h1>
         <div className="singlePostInfo">
           <span className="author">
